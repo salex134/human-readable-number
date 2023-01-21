@@ -29,8 +29,54 @@ module.exports = function toReadable (number) {
         80: 'eighty',
         90: 'ninety'
     }
-  
-    let humanNumber = {
 
+    let digits = 0
+    let tens = 0
+    let hundreds = 0
+    let accumStr = ''
+
+
+    if (number === 0){
+        return 'zero'
     }
+
+    underHundred = Math.floor(number % 100 / 10)
+
+      switch (underHundred){
+        case 0: {
+            digits = number % 10
+            break
+        }
+        case 1: {
+            tens = number % 100
+            digits = 0
+            break
+        }
+        default: {
+            tens = Math.floor(number % 100 / 10) * 10
+            digits = number % 10
+        }
+    }
+
+    hundreds = Math.floor(number / 100)
+
+    if (hundreds > 0) {accumStr += numbers[hundreds] + ' hundred '}
+    if (tens > 0) {accumStr = accumStr + numbers[tens] + ' '}
+    if (digits > 0) {accumStr += numbers[digits]}
+    
+    //console.log(hundreds, tens, digits, accumStr)
+
+    return accumStr
+
+
 }
+
+
+/* toReadable (954)
+toReadable (914)
+toReadable (904)
+toReadable (14)
+toReadable (0)
+toReadable (25)
+toReadable (30)
+ */
