@@ -36,7 +36,7 @@ module.exports = function toReadable (number) {
     let accumStr = ''
 
 
-    if (number === 0){
+    if (!number){
         return 'zero'
     }
 
