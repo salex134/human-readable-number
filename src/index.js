@@ -60,11 +60,21 @@ module.exports = function toReadable (number) {
 
     hundreds = Math.floor(number / 100)
 
-    if (hundreds > 0) {accumStr += numbers[hundreds] + ' hundred '}
-    if (tens > 0) {accumStr = accumStr + numbers[tens] + ' '}
-    if (digits > 0) {accumStr += numbers[digits]}
+    if (hundreds > 0) {accumStr += numbers[hundreds] + ' hundred'}
+    if (tens > 0) {
+        if (!hundreds){
+            accumStr = accumStr + numbers[tens]
+        } else {accumStr = accumStr + ' ' + numbers[tens]}
+    }
+    if (digits > 0) {
+        if (!hundreds && !tens){
+            accumStr = accumStr + numbers[digits]
+        } else {
+            accumStr = accumStr + ' ' + numbers[digits]}
+        }
+
     
-    //console.log(hundreds, tens, digits, accumStr)
+    //console.log(number, hundreds, tens, digits, accumStr)
 
     return accumStr
 
@@ -72,11 +82,15 @@ module.exports = function toReadable (number) {
 }
 
 
-/* toReadable (954)
+/*  toReadable (954)
 toReadable (914)
 toReadable (904)
 toReadable (14)
 toReadable (0)
 toReadable (25)
-toReadable (30)
- */
+toReadable (1)
+toReadable (3)
+
+toReadable (997)
+toReadable (21) */
+
